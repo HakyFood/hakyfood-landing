@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HakyFood - Thực đơn ảnh & video | Mùa World Cup 2026</title>
+<meta name="description" content="Xem ảnh và video thực tế từng món tại HakyFood - Ship đồ ăn đêm Hà Nội. Đặt hàng qua Facebook, Zalo, Grab.">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; background:#0d0d1a; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background:#1a1a2e;
+    color:#e0e0e0;
+    padding-bottom:90px;
+    max-width:480px;
+    margin:0 auto;
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
+  }
+  /* HERO - san co stripes */
+  .hero {
+    padding:26px 20px 20px;
+    background:repeating-linear-gradient(135deg, #1b6b3a 0px, #1b6b3a 40px, #15592f 40px, #15592f 80px);
+    text-align:center;
+    border-bottom:3px solid #ffba08;
+  }
+  .hero .logo {
+    font-size:26px; font-weight:800; letter-spacing:1px; color:#fff;
+    text-shadow:0 2px 6px rgba(0,0,0,0.4);
+  }
+  .hero .wc-banner {
+    margin-top:8px; display:inline-block; background:#e85d04; color:#fff;
+    font-size:12px; font-weight:800; letter-spacing:1px; padding:5px 14px;
+    border-radius:20px; text-transform:uppercase;
+  }
+  .hero .tagline { font-size:13px; margin-top:8px; color:#eafbe7; }
+  .hero .info { font-size:12px; margin-top:10px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .hero .info span { background:rgba(255,255,255,0.18); padding:4px 10px; border-radius:20px; color:#fff; }
+
+  /* LICH THI DAU - cap nhat hang ngay */
+  .matches-section {
+    margin:14px 16px 0; background:#16213e; border:1px solid #ffba08; border-radius:14px;
+    padding:12px 16px;
+  }
+  .matches-section .matches-title {
+    font-size:13px; font-weight:800; color:#ffba08; text-transform:uppercase; letter-spacing:1px;
+    margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .matches-section .matches-date {
+    font-size:15px; color:#fff; font-weight:800; text-transform:none; letter-spacing:0.5px;
+    background:#e85d04; padding:4px 12px; border-radius:10px;
+  }
+  .match-row {
+    display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
+  }
+  .match-row:last-child { border-bottom:none; }
+  .match-row .match-time {
+    background:#1b6b3a; color:#fff; font-weight:800; font-size:12px;
+    padding:4px 10px; border-radius:8px; flex-shrink:0;
+  }
+  .match-row .match-teams { flex:1; text-align:center; font-weight:700; color:#fff; }
+  .match-row .match-vs { color:#e85d04; font-weight:800; margin:0 6px; }
+  .matches-empty { font-size:12px; color:#9a9a9a; text-align:center; padding:6px 0; }
+
+  /* NAV PILLS - chuyen huong danh muc */
+  .nav-pills {
+    position:sticky; top:0; z-index:6; background:#1a1a2e;
+    padding:12px 16px 16px; display:flex; gap:8px; overflow-x:auto;
+    -webkit-overflow-scrolling:touch; border-bottom:1px solid #2d3f56;
+    scrollbar-width:thin; scrollbar-color:#ffba08 #16213e;
+  }
+  .nav-pills::-webkit-scrollbar{ height:5px; }
+  .nav-pills::-webkit-scrollbar-track{ background:#16213e; border-radius:10px; }
+  .nav-pills::-webkit-scrollbar-thumb{ background:#ffba08; border-radius:10px; }
+  .nav-pills::-webkit-scrollbar-thumb:hover{ background:#e85d04; }
+  .nav-pills a {
+    flex-shrink:0; padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600;
+    background:#16213e; border:1px solid #2d3f56; color:#c8d6e5; white-space:nowrap;
+    text-decoration:none; transition:background .15s, color .15s, border-color .15s;
+  }
+  .nav-pills a.active { background:#1b6b3a; color:#fff; border-color:#1b6b3a; }
+
+  /* SECTION HEADERS */
+  .section-title {
+    margin:22px 16px 10px; font-size:14px; font-weight:800; color:#ffba08;
+    text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:6px;
+    scroll-margin-top:64px;
+  }
+
+  /* GRID */
+  .grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:0 16px;
+  }
+  .card {
+    background:#16213e; border:1px solid #2d3f56; border-radius:16px; overflow:hidden;
+  }
+  .card .media {
+    aspect-ratio:1/1; position:relative; overflow:hidden;
+    background:repeating-linear-gradient(135deg, #0f3460 0px, #0f3460 18px, #16213e 18px, #16213e 36px);
+  }
+  .card .media .placeholder {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:46px;
+  }
+  .card .media .placeholder.no-img {
+    font-size:13px; font-weight:700; color:#5a6b85; text-transform:uppercase; letter-spacing:1px;
+  }
+  .card .media img {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .card .badge {
+    position:absolute; top:8px; left:8px; background:#e85d04; color:#fff; z-index:2;
+    font-size:10px; font-weight:800; padding:3px 8px; border-radius:10px;
+  }
+  .card .badge.wc { background:#1b6b3a; }
+  .card .body { padding:10px 12px 14px; }
+  .card .name { font-size:14px; font-weight:700; color:#fff; line-height:1.3; margin-bottom:4px; }
+  .card .desc { font-size:11px; color:#9ab0c9; line-height:1.4; margin-bottom:6px; }
+  .card .price { font-size:14px; font-weight:800; color:#ffba08; }
+  .card .price .old-price { color:#9a9a9a; font-weight:400; text-decoration:line-through; font-size:11px; margin-left:4px; }
+  .card .schedule { font-size:10px; color:#1b6b3a; background:#eafbe7; display:inline-block; padding:2px 7px; border-radius:8px; margin-top:4px; font-weight:700; }
+
+  /* NOTE BOX - topping / ghi chu them */
+  .note-box {
+    margin:10px 16px 0; background:#0f3460; border:1px solid #2d3f56; border-radius:12px;
+    padding:10px 14px; font-size:11px; color:#c8d6e5; line-height:1.7;
+  }
+  .note-box b { color:#ffba08; }
+  .note-box + .note-box { margin-top:8px; }
+
+  /* PROMO */
+  .promo {
+    margin:20px 16px 16px; background:#16213e; border:1px solid #ffba08; border-radius:14px;
+    padding:14px 16px; font-size:12px; color:#c8d6e5; line-height:1.8;
+  }
+  .promo b { color:#ffba08; }
+  .promo div { margin-top:4px; }
+  .promo div:first-child { margin-top:0; }
+
+  /* FLOATING CTA */
+  .floating-cta {
+    position:fixed; bottom:0; left:0; right:0; padding:12px 16px;
+    background:#16213e; border-top:1px solid #2d3f56;
+    display:flex; gap:10px; z-index:7;
+    max-width:480px; margin:0 auto;
+  }
+  .floating-cta a {
+    flex:1; text-align:center; padding:13px; border-radius:12px; font-weight:700;
+    font-size:13px; text-decoration:none; color:#fff;
+  }
+  .btn-fb { background:#1877f2; }
+  .btn-shopee { background:#ee4d2d; }
+  .btn-grab { background:linear-gradient(135deg,#1b6b3a,#e85d04); }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="logo">⚽ HAKYFOOD</div>
+    <div class="wc-banner">Mùa World Cup 2026</div>
+    <div class="tagline">Chăm chút trên từng món ăn — Đêm cày bóng, HakyFood giao tận tay.</div>
+    <div class="info">
+      <span>⏰ 18h30 – 3h sáng</span>
+      <span>📍 Đống Đa, Hà Nội</span>
+    </div>
+  </div>
+
+  <div class="matches-section" id="matchesSection">
+    <div class="matches-title">⚽ Lịch thi đấu hôm nay <span class="matches-date" id="matchesDate"></span></div>
+    <div id="matchesList"></div>
+  </div>
+
+  <div class="promo">
+    <div style="font-weight:800;color:#ffba08;text-transform:uppercase;font-size:11px;letter-spacing:1px;">⏰ Khung giờ 18h30–21h00</div>
+    <div>🎁 Chỉ <b>10.000đ</b> có thêm 1 canh bất kỳ + 1 trứng ốp</div>
+    <div>🚚 Freeship đơn dưới 2km từ Ngã 6 Xã Đàn</div>
+    <div style="font-weight:800;color:#ffba08;text-transform:uppercase;font-size:11px;letter-spacing:1px;margin-top:10px;">🎉 Các chương trình khác</div>
+    <div>🥤 Tặng 1 đồ uống bất kỳ với đơn trên <b>299k</b></div>
+    <div>🎉 Freeship với đơn trên <b>499k</b></div>
+    <div>💰 Giảm 10% tổng bill với đơn trên <b>999k</b></div>
+  </div>
+
+  <nav class="nav-pills" id="navPills"></nav>
+
+  <div id="menu"></div>
+
+  <div class="floating-cta">
+    <a class="btn-fb" href="https://www.facebook.com/shipdoandemhaky" target="_blank">Facebook</a>
+    <a class="btn-shopee" href="https://shopeefood.vn/now-food/shop/1236355" target="_blank">Shopee Food</a>
+    <a class="btn-grab" href="https://r.grab.com/o/ZNFFNnmi" target="_blank">Grab Food</a>
+  </div>
+
+<script>
+// ===== DANH MUC =====
+// notes: cac ghi chu (topping, sot chấm, do them...) hien thi sau grid cua danh muc
+const CATS = [
+  {key:'goi-y', label:'🔥 Gợi ý nên thử'},
+  {key:'combo', label:'⚽ Combo Street Food'},
+  {key:'dac-biet', label:'⭐ Món đặc biệt'},
+  {key:'com', label:'🍚 Cơm'},
+  {key:'canh-an-kem', label:'🥣 Canh ăn kèm'},
+  {key:'com-rang', label:'🍳 Cơm rang'},
+  {key:'mi-mien', label:'🍜 Mì / Miến'},
+  {key:'an-vat', label:'🍟 Đồ ăn vặt'},
+  {key:'nhau', label:'🍻 Món nhậu nhâm nhi'},
+  {key:'salad', label:'🥗 Salad'},
+  {key:'do-uong', label:'🥤 Đồ uống'},
+  {key:'trang-mieng', label:'🍉 Tráng miệng'},
+];
+
+// ===== TOAN BO MENU =====
+// cats: cac danh muc ma mon nay xuat hien (mon co the thuoc nhieu danh muc)
+const ITEMS = [
+  // --- GOI Y NEN THU ---
+  {cats:['goi-y','com'], name:'Cơm gà nướng mật ong', desc:'Đùi gà nướng mật ong, cơm trắng, dưa leo', price:'75.000đ', img:'com-ga-nuong-mat-ong', emoji:'🍗', badge:'Best-seller', schedule:'Thứ 2-4-6 · 33 suất'},
+  {cats:['goi-y','com'], name:'Cơm thịt nướng Hàn Quốc', desc:'Cơm trắng + thịt nướng + kim chi', price:'80.000đ', img:'com-thit-nuong-han-quoc', emoji:'🥘', schedule:'Thứ 3-5-7 · 27 suất'},
+  {cats:['goi-y','com-rang'], name:'Cơm rang Đông Phương', desc:'Lườn ngỗng, lạp xưởng, rau củ, hành lá, sốt Bắc Kinh', price:'65.000đ', img:'com-rang-dong-phuong', emoji:'🍚'},
+  {cats:['goi-y','an-vat'], name:'Da gà chiên giòn', desc:'Da gà chiên giòn rụm, ăn vặt hoặc nhâm nhi', price:'35.000đ', img:'da-ga-chien-gion', emoji:'🍗', badge:'Must Try'},
+  {cats:['goi-y','mi-mien'], name:'Mì trộn Haky', desc:'2 gói mì, viên chiên thập cẩm, rau củ', price:'55.000đ', img:'mi-tron-haky', emoji:'🍜', badge:'Best Seller'},
+  {cats:['goi-y','do-uong'], name:'Sen Dừa Trân Châu', desc:'Trân châu dừa, thạch củ năng', price:'45.000đ', img:'sen-dua-tran-chau', emoji:'🥥', badge:'Mới'},
+  {cats:['goi-y','do-uong'], name:'Nước Ép Quýt', desc:'Nước ép quýt tươi', price:'35.000đ', img:'nuoc-ep-quyt', emoji:'🍊', badge:'Must Try'},
+
+  // --- COMBO STREET FOOD ---
+  {cats:['combo'], name:'Combo Yên Lãng', desc:'Mì ý bò băm + Nem chua rán + Sâm dứa sữa', price:'120.000đ', oldPrice:'145.000đ', img:'combo-yen-lang', emoji:'🍝', badge:'Combo', badgeClass:'wc'},
+  {cats:['combo'], name:'Combo Thái Thịnh', desc:'Cơm rang Đông Phương + Gà viên chiên lắc phô mai + Sữa chua xoài', price:'155.000đ', oldPrice:'170.000đ', img:'combo-thai-thinh', emoji:'🍗', badge:'Combo', badgeClass:'wc'},
+  {cats:['combo'], name:'Combo Khương Trung', desc:'Cơm gà xào sả ớt + Nầm heo ướp sa tế + Nước ép quýt', price:'170.000đ', oldPrice:'185.000đ', img:'combo-khuong-trung', emoji:'🍢', badge:'Combo', badgeClass:'wc'},
+  {cats:['combo'], name:'Combo Thái Hà', desc:'Cơm rang chiến thần + Da gà chiên giòn + Sen dừa trân châu', price:'125.000đ', oldPrice:'145.000đ', img:'combo-thai-ha', emoji:'🍳', badge:'Mới', badgeClass:'wc'},
+  {cats:['combo'], name:'Combo Thanh Xuân', desc:'Cơm thịt heo xào hành tây + Sụn gà rang muối + Yakult đào', price:'165.000đ', oldPrice:'185.000đ', img:'combo-thanh-xuan', emoji:'🥗', badge:'Combo', badgeClass:'wc'},
+
+  // --- MON DAC BIET ---
+  {cats:['dac-biet'], name:'Tré Trộn Huế', desc:'Kèm phồng tôm; dưa leo, xoài, cóc; chả bò, nem chua, nem bì, trứng cút; rau răm, tỏi, đậu phộng, tiêu; nước trộn, muối tiêu', price:'85.000đ', img:'tre-tron-hue', emoji:'🥗', badge:'Best Seller'},
+  {cats:['dac-biet'], name:'Tré Trộn Bình Định', desc:'Kèm phồng tôm; dưa leo, xoài, cóc; chả bò, nem chua, nem bì, trứng cút; rau răm, tỏi, đậu phộng, tiêu; nước trộn, muối tiêu', price:'85.000đ', img:'tre-tron-binh-dinh', emoji:'🥗', badge:'Mới'},
+
+  // --- COM (thit heo) ---
+  {cats:['com'], name:'Cơm đậu hũ thịt băm sốt cà chua', desc:'Đậu hũ, thịt băm, sốt cà chua', price:'60.000đ', img:'com-dau-hu-thit-bam-sot-ca-chua', emoji:'🍚'},
+  {cats:['com'], name:'Cơm trư bát giới', desc:'Thịt heo chiên xù, sốt chua ngọt', price:'65.000đ', img:'com-tru-bat-gioi', emoji:'🍚', badge:'Mới'},
+  {cats:['com'], name:'Cơm thịt rang cháy tỏi', desc:'Thịt rang cháy cạnh, tỏi phi', price:'70.000đ', img:'com-thit-rang-chay-toi', emoji:'🍚', badge:'Best Seller'},
+  {cats:['com'], name:'Cơm thịt rang cháy cạnh', desc:'Thịt ba chỉ rang cháy cạnh đậm đà', price:'70.000đ', img:'com-thit-rang-chay-canh', emoji:'🍚', badge:'Best Seller'},
+  {cats:['com'], name:'Cơm thịt heo xào hành tây', desc:'Thịt heo xào hành tây', price:'70.000đ', img:'com-thit-heo-xao-hanh-tay', emoji:'🍚'},
+  {cats:['com'], name:'Cơm chân giò hầm Hàn Quốc', desc:'Chân giò hầm kiểu Hàn Quốc, đậm vị', price:'80.000đ', img:'com-chan-gio-ham-han-quoc', emoji:'🍖'},
+
+  // --- COM (thit ga) ---
+  {cats:['com'], name:'Cơm đùi gà chiên mắm tỏi', desc:'Đùi gà chiên giòn, sốt mắm tỏi', price:'65.000đ', img:'com-dui-ga-chien-mam-toi', emoji:'🍗'},
+  {cats:['com'], name:'Cơm gà viên chiên Hàn Quốc', desc:'Gà viên chiên, sốt chua ngọt hoặc cay ngọt', price:'65.000đ', img:'com-ga-vien-chien-han-quoc', emoji:'🍗'},
+  {cats:['com'], name:'Cơm gà xào sả ớt', desc:'Gà xào sả ớt cay nồng', price:'70.000đ', img:'com-ga-xao-sa-ot', emoji:'🍗'},
+
+  // --- COM (thit bo) ---
+  {cats:['com'], name:'Cơm bò sốt tiêu đen', desc:'Bò xào sốt tiêu đen thơm nồng', price:'75.000đ', img:'com-bo-sot-tieu-den', emoji:'🥩'},
+  {cats:['com'], name:'Bánh bao bò tiêu đen', desc:'6 cái, sốt tiêu đen', price:'65.000đ/6 cái', img:'banh-bao-bo-tieu-den', emoji:'🥟'},
+
+  // --- COM SUON ---
+  {cats:['com'], name:'Cơm sườn cay', desc:'Sườn chiên sốt cay đậm đà', price:'80.000đ', img:'com-suon-cay', emoji:'🍖'},
+  {cats:['com'], name:'Cơm sườn chiên mắm tỏi', desc:'Sườn chiên giòn, sốt mắm tỏi', price:'80.000đ', img:'com-suon-chien-mam-toi', emoji:'🍖'},
+  {cats:['com'], name:'Cơm sườn sốt chua ngọt', desc:'Sườn chiên sốt chua ngọt', price:'80.000đ', img:'com-suon-sot-chua-ngot', emoji:'🍖'},
+
+  // --- CANH AN KEM ---
+  {cats:['canh-an-kem'], name:'Canh chua thịt băm', desc:'Canh chua thịt băm', price:'15.000đ', img:'canh-chua-thit-bam', emoji:'🥣'},
+  {cats:['canh-an-kem'], name:'Canh tôm bầu', desc:'Canh tôm bầu', price:'20.000đ', img:'canh-tom-bau', emoji:'🥣'},
+
+  // --- COM RANG (con lai) ---
+  {cats:['com-rang'], name:'Cơm rang Haky', desc:'Mực, tôm, rau củ, sốt Haky (cơm sẽ không khô)', price:'75.000đ', img:'com-rang-haky', emoji:'🍳'},
+  {cats:['com-rang'], name:'Cơm rang Hawaii', desc:'Tôm, dứa, lạp xưởng, rau củ, hành lá, sốt Haky', price:'75.000đ', img:'com-rang-hawaii', emoji:'🍳'},
+  {cats:['com-rang'], name:'Cơm rang chiến thần', desc:'Lạp xưởng Kiên Giang, xúc xích, chà bông, nem lụi, rau củ', price:'65.000đ', img:'com-rang-chien-than', emoji:'🍳', badge:'Must Try'},
+  {cats:['com-rang'], name:'Cơm rang Hoàng Gia', desc:'Pate, lạp xưởng, xúc xích, rau củ', price:'65.000đ', img:'com-rang-hoang-gia', emoji:'🍚'},
+
+  // --- MI Y ---
+  {cats:['mi-mien'], name:'Mì Ý sốt kem nấm xúc xích', desc:'Kem, nấm, xúc xích', price:'65.000đ', img:'mi-y-sot-kem-nam-xuc-xich', emoji:'🍝'},
+  {cats:['mi-mien'], name:'Mì Ý sốt bò băm', desc:'Sốt cà chua', price:'70.000đ', img:'mi-y-sot-bo-bam', emoji:'🍝'},
+  {cats:['mi-mien'], name:'Mì Ý Carbonara', desc:'Thịt xông khói, sốt kem, nấm', price:'80.000đ', img:'mi-y-carbonara', emoji:'🍝'},
+
+  // --- MI XAO ---
+  {cats:['mi-mien'], name:'Mì xào bò', desc:'Bò, rau cải, hành tây, carot, nấm hương', price:'65.000đ', img:'mi-xao-bo', emoji:'🍜'},
+  {cats:['mi-mien'], name:'Mì xào hải sản', desc:'Mực, tôm, giá đỗ, carot, nấm hương', price:'70.000đ', img:'mi-xao-hai-san', emoji:'🍜'},
+  {cats:['mi-mien'], name:'Mì xào hoàng kim', desc:'Trứng non, bò, rau cải, hành tây, carot, nấm hương, sốt Haky', price:'75.000đ', img:'mi-xao-hoang-kim', emoji:'🍜'},
+
+  // --- MIEN XAO HAN QUOC ---
+  {cats:['mi-mien'], name:'Miến xào bò', desc:'Miến, bò, rau cải, hành tây, carot, sốt Haky', price:'75.000đ', img:'mien-xao-bo', emoji:'🍜'},
+  {cats:['mi-mien'], name:'Miến xào hải sản', desc:'Miến, mực, tôm, nấm hương, giá đỗ', price:'85.000đ', img:'mien-xao-hai-san', emoji:'🍜'},
+
+  // --- MI TRON (con lai) ---
+  {cats:['mi-mien'], name:'Mì trộn Bò', desc:'Mì trộn cùng bò xào', price:'55.000đ', img:'mi-tron-bo', emoji:'🍜'},
+  {cats:['mi-mien'], name:'Mì trộn Lườn ngỗng', desc:'Mì trộn cùng lườn ngỗng', price:'50.000đ', img:'mi-tron-luon-ngong', emoji:'🍜'},
+  {cats:['mi-mien'], name:'Mì trộn Lạp xưởng', desc:'2 cái lạp xưởng', price:'35.000đ', img:'mi-tron-lap-xuong', emoji:'🌭'},
+  {cats:['mi-mien'], name:'Mì trộn Xúc xích', desc:'2 cái xúc xích', price:'35.000đ', img:'mi-tron-xuc-xich', emoji:'🌭'},
+
+  // --- DO AN VAT ---
+  {cats:['an-vat'], name:'Da gà chiên giòn phô mai', desc:'Da gà chiên giòn lắc phô mai', price:'45.000đ', img:'da-ga-chien-gion-pho-mai', emoji:'🧀', badge:'Mới'},
+  {cats:['an-vat'], name:'Gà viên chiên lắc phô mai', desc:'Gà viên chiên giòn lắc phô mai', price:'70.000đ', img:'ga-vien-chien-lac-pho-mai', emoji:'🧀'},
+  {cats:['an-vat'], name:'Gà viên chiên giòn', desc:'Gà viên chiên giòn', price:'60.000đ', img:'ga-vien-chien-gion', emoji:'🍗'},
+  {cats:['an-vat'], name:'Phồng tôm chấm pate', desc:'Phồng tôm chiên giòn, chấm pate', price:'50.000đ', img:'phong-tom-cham-pate', emoji:'🍤'},
+  {cats:['an-vat'], name:'Khoai tây chiên lắc phô mai', desc:'Khoai tây chiên lắc phô mai', price:'45.000đ', img:'khoai-tay-chien-lac-pho-mai', emoji:'🧀'},
+  {cats:['an-vat'], name:'Khoai tây chiên', desc:'Khoai tây chiên giòn', price:'35.000đ', img:'khoai-tay-chien', emoji:'🍟'},
+  {cats:['an-vat'], name:'Nem chua rán', desc:'Nem chua rán giòn', price:'35.000đ', img:'nem-chua-ran', emoji:'🍢'},
+  {cats:['an-vat'], name:'Nem lụi', desc:'1 cái', price:'20.000đ/cái', img:'nem-lui', emoji:'🍢'},
+  {cats:['an-vat'], name:'Lạp xưởng Hà Khẩu', desc:'Kèm ớt bột — 1 cái', price:'20.000đ/cái', img:'lap-xuong-ha-khau', emoji:'🌭'},
+  {cats:['an-vat'], name:'Lạp xưởng thường', desc:'1 cái', price:'12.000đ/cái', img:'lap-xuong-thuong', emoji:'🌭'},
+  {cats:['an-vat'], name:'Xúc xích', desc:'1 cái', price:'10.000đ/cái', img:'xuc-xich', emoji:'🌭'},
+  {cats:['an-vat'], name:'Bánh bao chấm sữa đặc', desc:'6 cái, chấm sữa đặc', price:'20.000đ/6 cái', img:'banh-bao-cham-sua-dac', emoji:'🥟'},
+  {cats:['an-vat'], name:'Combo ăn vặt 1', desc:'Dành cho 1-2 người', price:'55.000đ', img:'combo-an-vat-1', emoji:'📦'},
+  {cats:['an-vat'], name:'Combo ăn vặt 2', desc:'Tôm viên, cá viên, chả xoắn, tôm surimi, rau củ viên, viên hồ lô, nem chua rán, ngô chiên, dưa chuột, tương ớt — 2-3 người', price:'100.000đ', img:'combo-an-vat-2', emoji:'📦', badge:'Combo', badgeClass:'wc'},
+
+  // --- MON NHAU NHAM NHI ---
+  {cats:['nhau'], name:'Set cuộn chân giò Hàn Quốc', desc:'Cho 2-3 người', price:'300.000đ', img:'set-cuon-chan-gio-han-quoc', emoji:'🍖'},
+  {cats:['nhau'], name:'Set thịt nướng Hàn Quốc', desc:'250gr, kèm rau, kim chi, sốt chấm — 1-2 người', price:'150.000đ', img:'set-thit-nuong-han-quoc', emoji:'🍖'},
+  {cats:['nhau'], name:'Nem chua lá ổi', desc:'Nem chua cuốn lá ổi', price:'45.000đ', img:'nem-chua-la-oi', emoji:'🌿'},
+  {cats:['nhau'], name:'Nem bùi lá sung', desc:'Nem bùi cuốn lá sung', price:'50.000đ', img:'nem-bui-la-sung', emoji:'🌿'},
+  {cats:['nhau'], name:'Nem tai lá sung', desc:'Nem tai cuốn lá sung', price:'55.000đ', img:'nem-tai-la-sung', emoji:'🌿'},
+  {cats:['nhau'], name:'Nầm heo ướp chao', desc:'Nầm heo nướng ướp chao', price:'80.000đ', img:'nam-heo-uop-chao', emoji:'🍖'},
+  {cats:['nhau'], name:'Nầm heo ướp sa tế', desc:'Nầm heo nướng ướp sa tế', price:'80.000đ', img:'nam-heo-uop-sa-te', emoji:'🍖'},
+  {cats:['nhau'], name:'Nầm heo sốt me', desc:'Nầm heo sốt me chua ngọt', price:'80.000đ', img:'nam-heo-sot-me', emoji:'🍖'},
+  {cats:['nhau'], name:'Trứng non cháy tỏi sa tế', desc:'Trứng non gà cháy tỏi sa tế', price:'75.000đ', img:'trung-non-chay-toi-sa-te', emoji:'🥚'},
+  {cats:['nhau'], name:'Trứng non cháy tiêu', desc:'Trứng non gà cháy tiêu', price:'75.000đ', img:'trung-non-chay-tieu', emoji:'🥚'},
+  {cats:['nhau'], name:'Trứng non sốt me bơ', desc:'Trứng non sốt me bơ béo ngậy', price:'75.000đ', img:'trung-non-sot-me-bo', emoji:'🥚'},
+  {cats:['nhau'], name:'Chân gà rang muối', desc:'5 chiếc', price:'65.000đ/5 chiếc', img:'chan-ga-rang-muoi', emoji:'🍗'},
+  {cats:['nhau'], name:'Chân gà chiên mắm', desc:'5 chiếc', price:'65.000đ/5 chiếc', img:'chan-ga-chien-mam', emoji:'🍗'},
+  {cats:['nhau'], name:'Chân gà sốt thái', desc:'Chua cay, hợp gu nhâm nhi', price:'85.000đ', img:'chan-ga-sot-thai', emoji:'🍢'},
+  {cats:['nhau'], name:'Gà ủ muối nửa con', desc:'1 khay', price:'160.000đ/khay', img:'ga-u-muoi-nua-con', emoji:'🍗'},
+  {cats:['nhau'], name:'Gà ủ muối 1 con', desc:'2 khay', price:'310.000đ/2 khay', img:'ga-u-muoi-1-con', emoji:'🍗'},
+  {cats:['nhau'], name:'Sụn gà rang muối', desc:'Sụn gà chiên rang muối', price:'85.000đ', img:'sun-ga-rang-muoi', emoji:'🍗'},
+  {cats:['nhau'], name:'Sụn gà chiên mắm', desc:'Sụn gà chiên mắm tỏi', price:'85.000đ', img:'sun-ga-chien-mam', emoji:'🍗'},
+  {cats:['nhau'], name:'Sụn gà hoàng kim', desc:'Sụn gà chiên giòn kèm sốt trứng muối', price:'95.000đ', img:'sun-ga-hoang-kim', emoji:'🍢'},
+  {cats:['nhau'], name:'Chim quay', desc:'1 con', price:'155.000đ/con', img:'chim-quay', emoji:'🍗'},
+  {cats:['nhau'], name:'Phồng tôm xúc chim câu', desc:'Phồng tôm ăn cùng chim câu xé', price:'170.000đ', img:'phong-tom-xuc-chim-cau', emoji:'🍤'},
+  {cats:['nhau'], name:'Bia Tiger bạc', desc:'1 chai — làm vài lon cho đúng không khí cổ vũ', price:'25.000đ/chai', img:'bia-tiger-bac', emoji:'🍺'},
+
+  // --- SALAD ---
+  {cats:['salad'], name:'Salad Nhiệt Đới', desc:'Salad rau củ tươi nhiệt đới', price:'25.000đ', img:'salad-nhiet-doi', emoji:'🥗'},
+  {cats:['salad'], name:'Salad Lườn Ngỗng', desc:'Salad kèm lườn ngỗng', price:'40.000đ', img:'salad-luon-ngong', emoji:'🥗'},
+  {cats:['salad'], name:'Salad Thịt Hun Khói', desc:'Salad kèm thịt hun khói', price:'45.000đ', img:'salad-thit-hun-khoi', emoji:'🥗'},
+
+  // --- DO UONG (con lai) ---
+  {cats:['do-uong'], name:'Trà ô long nhài', desc:'Kèm trân châu trắng', price:'35.000đ', img:'tra-o-long-nhai', emoji:'🍵'},
+  {cats:['do-uong'], name:'Trà ô long nhài sữa', desc:'Kèm trân châu trắng', price:'35.000đ', img:'tra-o-long-nhai-sua', emoji:'🍵'},
+  {cats:['do-uong'], name:'Trà ô long nhài cốm', desc:'Vị cốm thơm dịu', price:'40.000đ', img:'tra-o-long-nhai-com', emoji:'🍵', badge:'Mới'},
+  {cats:['do-uong'], name:'Trà sữa đậm vị truyền thống', desc:'Kèm trân châu caramel', price:'30.000đ', img:'tra-sua-dam-vi-truyen-thong', emoji:'🧋'},
+  {cats:['do-uong'], name:'Sữa chua chanh dây', desc:'Sữa chua kèm chanh dây', price:'35.000đ', img:'sua-chua-chanh-day', emoji:'🥤'},
+  {cats:['do-uong'], name:'Sữa chua xoài', desc:'Sữa chua kèm xoài', price:'35.000đ', img:'sua-chua-xoai', emoji:'🥤'},
+  {cats:['do-uong'], name:'Sữa chua dâu', desc:'Sữa chua kèm dâu', price:'35.000đ', img:'sua-chua-dau', emoji:'🥤'},
+  {cats:['do-uong'], name:'Trà mãng cầu', desc:'Trà hoa quả tươi, kèm topping hoa quả', price:'40.000đ', img:'tra-mang-cau', emoji:'🥤'},
+  {cats:['do-uong'], name:'Trà xoài chanh leo', desc:'Trà hoa quả xoài chanh leo', price:'35.000đ', img:'tra-xoai-chanh-leo', emoji:'🧋'},
+  {cats:['do-uong'], name:'Trà xoài đào', desc:'Trà hoa quả xoài đào', price:'35.000đ', img:'tra-xoai-dao', emoji:'🧋'},
+  {cats:['do-uong'], name:'Sen dừa lạnh', desc:'Sen dừa mát lạnh', price:'45.000đ', img:'sen-dua-lanh', emoji:'🥥', badge:'Mới'},
+  {cats:['do-uong'], name:'Trà chanh Haky', desc:'Trà chanh đặc trưng Haky', price:'20.000đ', img:'tra-chanh-haky', emoji:'🍋'},
+  {cats:['do-uong'], name:'Nước chanh', desc:'Nước chanh tươi', price:'20.000đ', img:'nuoc-chanh', emoji:'🍋'},
+  {cats:['do-uong'], name:'Trà tắc', desc:'Trà tắc giải khát', price:'15.000đ', img:'tra-tac', emoji:'🍋'},
+  {cats:['do-uong'], name:'Trà chanh', desc:'Trà chanh truyền thống', price:'15.000đ', img:'tra-chanh', emoji:'🍋'},
+  {cats:['do-uong'], name:'Sâm dứa sữa thạch củ năng', desc:'Sâm dứa sữa kèm thạch củ năng', price:'35.000đ', img:'sam-dua-sua-thach-cu-nang', emoji:'🥤'},
+  {cats:['do-uong'], name:'Yakult đào', desc:'Kèm trân châu trắng', price:'30.000đ', img:'yakult-dao', emoji:'🥤'},
+  {cats:['do-uong'], name:'Yakult dâu', desc:'Kèm trân châu trắng', price:'30.000đ', img:'yakult-dau', emoji:'🥤'},
+  {cats:['do-uong'], name:'Nước lọc Dasani', desc:'Chai 500ml', price:'12.000đ', img:'nuoc-loc-dasani', emoji:'💧'},
+  {cats:['do-uong'], name:'Coca', desc:'Lon', price:'15.000đ', img:'coca', emoji:'🥤'},
+  {cats:['do-uong'], name:'Sting đỏ', desc:'Lon', price:'15.000đ', img:'sting-do', emoji:'🥤'},
+  {cats:['do-uong'], name:'Sprite', desc:'Lon', price:'15.000đ', img:'sprite', emoji:'🥤', badge:'Mới'},
+  {cats:['do-uong'], name:'Nước lệ chi', desc:'Kèm trân châu trắng', price:'30.000đ', img:'nuoc-le-chi', emoji:'🧋'},
+  {cats:['do-uong'], name:'Tắc lắc sữa', desc:'Kèm trân châu trắng', price:'30.000đ', img:'tac-lac-sua', emoji:'🧋'},
+  {cats:['do-uong'], name:'Chanh leo lắc sữa', desc:'Kèm trân châu trắng', price:'30.000đ', img:'chanh-leo-lac-sua', emoji:'🧋'},
+
+  // --- TRANG MIENG ---
+  {cats:['trang-mieng'], name:'Roi đỏ', desc:'300gr, kèm muối chấm', price:'40.000đ', img:'roi-do', emoji:'🍒'},
+  {cats:['trang-mieng'], name:'Dưa hấu', desc:'350gr, gọt sẵn', price:'25.000đ', img:'dua-hau', emoji:'🍉'},
+  {cats:['trang-mieng'], name:'Chè dừa dầm', desc:'Chè dừa dầm mát lạnh', price:'20.000đ', img:'che-dua-dam', emoji:'🍨', badge:'Mới'},
+  {cats:['trang-mieng'], name:'Chè sầu riêng Đà Nẵng', desc:'Chè sầu riêng đặc trưng Đà Nẵng', price:'35.000đ', img:'che-sau-rieng-da-nang', emoji:'🍮', badge:'Mới'},
+];
+
+// ===== LICH THI DAU HOM NAY =====
+// Cap nhat moi ngay: sua MATCH_DATE va MATCHES roi luu file lai.
+// teamA/teamB: ten 2 doi. time: gio da (gio Viet Nam).
+const MATCH_DATE = '14/06/2026';
+const MATCHES = [
+  {time:'00:00', teamA:'Đức', teamB:'Curacao'},
+  {time:'03:00', teamA:'Hà Lan', teamB:'Nhật Bản'},
+  {time:'06:00', teamA:'Bờ Biển Ngà', teamB:'Ecuador'},
+  {time:'09:00', teamA:'Thụy Điển', teamB:'Tunisia'},
+  {time:'23:00', teamA:'Tây Ban Nha', teamB:'Cape Verde'},
+];
+
+// ===== RENDER LICH THI DAU =====
+const matchesDateEl = document.getElementById('matchesDate');
+const matchesListEl = document.getElementById('matchesList');
+if (matchesDateEl) matchesDateEl.textContent = MATCH_DATE;
+if (matchesListEl) {
+  if (MATCHES.length) {
+    MATCHES.forEach(m => {
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.innerHTML = `
+        <div class="match-time">${m.time}</div>
+        <div class="match-teams">${m.teamA}<span class="match-vs">vs</span>${m.teamB}</div>`;
+      matchesListEl.appendChild(row);
+    });
+  } else {
+    matchesListEl.innerHTML = `<div class="matches-empty">Hôm nay chưa có trận nào — vẫn ship đồ ăn đêm bình thường 18h30–3h sáng nhé 🌙</div>`;
+  }
+}
+
+// ===== RENDER =====
+const menuEl = document.getElementById('menu');
+const navEl = document.getElementById('navPills');
+
+CATS.forEach(cat => {
+  const items = ITEMS.filter(it => it.cats.includes(cat.key));
+  if (!items.length) return;
+
+  // nav pill
+  const pill = document.createElement('a');
+  pill.href = '#cat-' + cat.key;
+  pill.dataset.cat = cat.key;
+  pill.textContent = cat.label;
+  navEl.appendChild(pill);
+
+  // section title
+  const title = document.createElement('div');
+  title.className = 'section-title';
+  title.id = 'cat-' + cat.key;
+  title.textContent = cat.label;
+  menuEl.appendChild(title);
+
+  // grid
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  items.forEach(it => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="media">
+        <div class="placeholder">${it.emoji}</div>
+        <img src="images/${it.img}.jpg" alt="${it.name}" onerror="this.style.display='none'; this.previousElementSibling.textContent='Đang cập nhật'; this.previousElementSibling.classList.add('no-img')">
+        ${it.badge ? `<div class="badge${it.badgeClass ? ' ' + it.badgeClass : ''}">${it.badge}</div>` : ''}
+      </div>
+      <div class="body">
+        <div class="name">${it.name}</div>
+        ${it.cats.includes('combo') ? `<div class="desc">${it.desc}</div>` : ''}
+        <div class="price">${it.price}${it.oldPrice ? `<span class="old-price">${it.oldPrice}</span>` : ''}</div>
+        ${it.schedule ? `<div class="schedule">${it.schedule}</div>` : ''}
+      </div>`;
+    grid.appendChild(card);
+  });
+  menuEl.appendChild(grid);
+
+  // notes (topping, sot chấm, do them...)
+  (cat.notes || []).forEach(noteHtml => {
+    const note = document.createElement('div');
+    note.className = 'note-box';
+    note.innerHTML = noteHtml;
+    menuEl.appendChild(note);
+  });
+});
+
+// ===== SCROLLSPY: highlight pill dang xem =====
+const pills = [...navEl.querySelectorAll('a')];
+const sections = CATS.map(c => document.getElementById('cat-' + c.key)).filter(Boolean);
+if (pills.length) pills[0].classList.add('active');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id.replace('cat-', '');
+      pills.forEach(p => p.classList.toggle('active', p.dataset.cat === id));
+      const activePill = navEl.querySelector('a.active');
+      if (activePill) activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  });
+}, { rootMargin: '-110px 0px -75% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

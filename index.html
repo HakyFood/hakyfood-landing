@@ -152,6 +152,23 @@
   .btn-fb { background:#1877f2; }
   .btn-shopee { background:#ee4d2d; }
   .btn-grab { background:linear-gradient(135deg,#1b6b3a,#e85d04); }
+
+  /* RESPONSIVE - man hinh rong (may tinh/tablet) */
+  @media (min-width: 600px) {
+    body {
+      max-width:680px;
+      box-shadow:0 0 60px rgba(0,0,0,0.6);
+      border-left:1px solid #2d3f56;
+      border-right:1px solid #2d3f56;
+    }
+    .floating-cta { max-width:680px; }
+    .hero .logo { font-size:30px; }
+    .hero .tagline { font-size:14px; }
+    .grid { grid-template-columns:1fr 1fr 1fr; gap:16px; }
+    .card .name { font-size:15px; }
+    .card .price { font-size:15px; }
+    .nav-pills { justify-content:center; flex-wrap:wrap; overflow-x:visible; }
+  }
 </style>
 </head>
 <body>

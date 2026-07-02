@@ -65,9 +65,11 @@
 
   /* NAV PILLS - chuyen huong danh muc */
   .nav-pills {
-    position:sticky; top:0; z-index:6; background:#1a1a2e;
-    padding:12px 16px 16px; display:flex; gap:8px; overflow-x:auto;
-    -webkit-overflow-scrolling:touch; border-bottom:1px solid #2d3f56;
+    position:sticky; top:0; z-index:6;
+    background:#0d0d1a;
+    padding:12px 16px 14px; display:flex; gap:8px; overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    border-bottom:2px solid #ffba08;
     scrollbar-width:thin; scrollbar-color:#ffba08 #16213e;
   }
   .nav-pills::-webkit-scrollbar{ height:5px; }
@@ -76,10 +78,19 @@
   .nav-pills::-webkit-scrollbar-thumb:hover{ background:#e85d04; }
   .nav-pills a {
     flex-shrink:0; padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600;
-    background:#16213e; border:1px solid #2d3f56; color:#c8d6e5; white-space:nowrap;
-    text-decoration:none; transition:background .15s, color .15s, border-color .15s;
+    background:#16213e; border:1px solid #2d3f56; color:#9ab0c9; white-space:nowrap;
+    text-decoration:none; transition:all .2s;
+    display:flex; align-items:center; gap:5px;
   }
-  .nav-pills a.active { background:#1b6b3a; color:#fff; border-color:#1b6b3a; }
+  .nav-pills a:hover {
+    border-color:#ffba08; color:#ffba08; background:#1a1a2e;
+  }
+  .nav-pills a.active {
+    background:#1b6b3a; color:#ffba08; border-color:#1b6b3a;
+    box-shadow:0 0 10px rgba(255,186,8,0.35), 0 0 20px rgba(27,107,58,0.4);
+    font-weight:700;
+  }
+  .nav-pills a .nav-emoji { font-size:15px; }
 
   /* SECTION HEADERS */
   .section-title {
@@ -418,7 +429,12 @@ CATS.forEach(cat => {
   const pill = document.createElement('a');
   pill.href = '#cat-' + cat.key;
   pill.dataset.cat = cat.key;
-  pill.textContent = cat.label;
+  const labelParts = cat.label.match(/^(\S+)\s(.+)$/);
+  if (labelParts) {
+    pill.innerHTML = `<span class="nav-emoji">${labelParts[1]}</span>${labelParts[2]}`;
+  } else {
+    pill.textContent = cat.label;
+  }
   navEl.appendChild(pill);
 
   // section title

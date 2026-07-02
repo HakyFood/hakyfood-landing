@@ -234,7 +234,6 @@ const ITEMS = [
   {cats:['goi-y','com'], name:'Cơm thịt nướng Hàn Quốc', desc:'Cơm trắng + thịt nướng + kim chi', price:'80.000đ', img:'com-thit-nuong-han-quoc', emoji:'🥘', schedule:'Thứ 3-5-7 · 27 suất'},
   {cats:['goi-y','com-rang'], name:'Cơm rang Đông Phương', desc:'Lườn ngỗng, lạp xưởng, rau củ, hành lá, sốt Bắc Kinh', price:'65.000đ', img:'com-rang-dong-phuong', emoji:'🍚'},
   {cats:['goi-y','an-vat'], name:'Da gà chiên giòn', desc:'Da gà chiên giòn rụm, ăn vặt hoặc nhâm nhi', price:'35.000đ', img:'da-ga-chien-gion', emoji:'🍗', badge:'Must Try'},
-  {cats:['goi-y','mi-mien'], name:'Mì trộn Haky', desc:'2 gói mì, viên chiên thập cẩm, rau củ', price:'55.000đ', img:'mi-tron-haky', emoji:'🍜', badge:'Best Seller'},
   {cats:['goi-y','do-uong'], name:'Sen Dừa Trân Châu', desc:'Trân châu dừa, thạch củ năng', price:'45.000đ', img:'sen-dua-tran-chau', emoji:'🥥', badge:'Mới'},
   {cats:['goi-y','do-uong'], name:'Nước Ép Quýt', desc:'Nước ép quýt tươi', price:'35.000đ', img:'nuoc-ep-quyt', emoji:'🍊', badge:'Must Try'},
 
@@ -296,6 +295,7 @@ const ITEMS = [
   {cats:['mi-mien'], name:'Miến xào hải sản', desc:'Miến, mực, tôm, nấm hương, giá đỗ', price:'85.000đ', img:'mien-xao-hai-san', emoji:'🍜'},
 
   // --- MI TRON (con lai) ---
+  {cats:['goi-y','mi-mien'], name:'Mì trộn Haky', desc:'2 gói mì, viên chiên thập cẩm, rau củ', price:'55.000đ', img:'mi-tron-haky', emoji:'🍜', badge:'Best Seller'},
   {cats:['mi-mien'], name:'Mì trộn Bò', desc:'Mì trộn cùng bò xào', price:'55.000đ', img:'mi-tron-bo', emoji:'🍜'},
   {cats:['mi-mien'], name:'Mì trộn Lườn ngỗng', desc:'Mì trộn cùng lườn ngỗng', price:'50.000đ', img:'mi-tron-luon-ngong', emoji:'🍜'},
   {cats:['mi-mien'], name:'Mì trộn Lạp xưởng', desc:'2 cái lạp xưởng', price:'35.000đ', img:'mi-tron-lap-xuong', emoji:'🌭'},
@@ -331,7 +331,7 @@ const ITEMS = [
   {cats:['nhau'], name:'Trứng non sốt me bơ', desc:'Trứng non sốt me bơ béo ngậy', price:'75.000đ', img:'trung-non-sot-me-bo', emoji:'🥚'},
   {cats:['nhau'], name:'Chân gà rang muối', desc:'5 chiếc', price:'65.000đ/5 chiếc', img:'chan-ga-rang-muoi', emoji:'🍗'},
   {cats:['nhau'], name:'Chân gà chiên mắm', desc:'5 chiếc', price:'65.000đ/5 chiếc', img:'chan-ga-chien-mam', emoji:'🍗'},
-  {cats:['nhau'], name:'Chân gà sốt thái', desc:'Chua cay, hợp gu nhâm nhi', price:'85.000đ', img:'chan-ga-sot-thai', emoji:'🍢'},
+  {cats:['dac-biet'], name:'Chân gà sốt thái', desc:'Chua cay, hợp gu nhâm nhi', price:'85.000đ', img:'chan-ga-sot-thai', emoji:'🍢'},
   {cats:['nhau'], name:'Gà ủ muối nửa con', desc:'1 khay', price:'160.000đ/khay', img:'ga-u-muoi-nua-con', emoji:'🍗'},
   {cats:['nhau'], name:'Gà ủ muối 1 con', desc:'2 khay', price:'310.000đ/2 khay', img:'ga-u-muoi-1-con', emoji:'🍗'},
   {cats:['nhau'], name:'Sụn gà rang muối', desc:'Sụn gà chiên rang muối', price:'85.000đ', img:'sun-ga-rang-muoi', emoji:'🍗'},
@@ -339,7 +339,7 @@ const ITEMS = [
   {cats:['nhau'], name:'Sụn gà hoàng kim', desc:'Sụn gà chiên giòn kèm sốt trứng muối', price:'95.000đ', img:'sun-ga-hoang-kim', emoji:'🍢'},
   {cats:['nhau'], name:'Chim quay', desc:'1 con', price:'155.000đ/con', img:'chim-quay', emoji:'🍗'},
   {cats:['nhau'], name:'Phồng tôm xúc chim câu', desc:'Phồng tôm ăn cùng chim câu xé', price:'170.000đ', img:'phong-tom-xuc-chim-cau', emoji:'🍤'},
-  {cats:['nhau'], name:'Bia Tiger bạc', desc:'1 chai — làm vài lon cho đúng không khí cổ vũ', price:'25.000đ/chai', img:'bia-tiger-bac', emoji:'🍺'},
+  {cats:['nhau'], name:'Bia Tiger bạc', desc:'1 chai — làm vài lon cho đúng không khí cổ vũ', price:'25.000đ', img:'bia-tiger-bac', emoji:'🍺'},
 
   // --- SALAD ---
   {cats:['salad'], name:'Salad Nhiệt Đới', desc:'Salad rau củ tươi nhiệt đới', price:'25.000đ', img:'salad-nhiet-doi', emoji:'🥗'},
@@ -375,7 +375,6 @@ const ITEMS = [
   // --- TRANG MIENG ---
   {cats:['trang-mieng'], name:'Roi đỏ', desc:'300gr, kèm muối chấm', price:'40.000đ', img:'roi-do', emoji:'🍒'},
   {cats:['trang-mieng'], name:'Dưa hấu', desc:'350gr, gọt sẵn', price:'25.000đ', img:'dua-hau', emoji:'🍉'},
-  {cats:['trang-mieng'], name:'Chè dừa dầm', desc:'Chè dừa dầm mát lạnh', price:'20.000đ', img:'che-dua-dam', emoji:'🍨', badge:'Mới'},
 ];
 
 // ===== LICH THI DAU HOM NAY =====

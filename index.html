@@ -41,18 +41,20 @@
     background:#e85d04; display:inline-block; padding:3px 10px; border-radius:8px; margin-bottom:4px;
   }
   .match-row {
-    display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
+    display:grid; grid-template-columns:60px 1fr 60px; align-items:center; gap:6px;
+    padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
   }
   .match-row:last-child { border-bottom:none; }
   .match-row .match-time {
     background:#1b6b3a; color:#fff; font-weight:800; font-size:12px;
-    padding:4px 10px; border-radius:8px; flex-shrink:0;
+    padding:4px 8px; border-radius:8px; text-align:center; justify-self:start;
   }
-  .match-row .match-teams { flex:1; text-align:center; font-weight:700; color:#fff; }
+  .match-row .match-teams { text-align:center; font-weight:700; color:#fff; }
   .match-row .match-vs { color:#e85d04; font-weight:800; margin:0 6px; }
   .match-row .match-comp {
     font-size:9px; font-weight:700; color:#9ab0c9; background:#0f3460;
-    padding:2px 6px; border-radius:6px; flex-shrink:0; white-space:nowrap; text-transform:uppercase;
+    padding:2px 6px; border-radius:6px; white-space:nowrap; text-transform:uppercase;
+    text-align:center; justify-self:end; max-width:100%; overflow:hidden; text-overflow:ellipsis;
   }
   .matches-empty { font-size:12px; color:#9a9a9a; text-align:center; padding:6px 0; }
 
@@ -181,7 +183,7 @@
   </div>
 
   <div class="matches-section" id="matchesSection">
-    <div class="matches-title">⚽ Lịch thi đấu 3 ngày tới</div>
+    <div class="matches-title">⚽ Lịch thi đấu</div>
     <div id="matchesList"></div>
   </div>
 

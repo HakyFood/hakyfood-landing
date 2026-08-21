@@ -26,6 +26,31 @@
   }
   .hero img { width:100%; height:auto; display:block; }
 
+  /* LICH THI DAU - cap nhat hang ngay */
+  .matches-section {
+    margin:14px 16px 0; background:#16213e; border:1px solid #ffba08; border-radius:14px;
+    padding:12px 16px;
+  }
+  .matches-section .matches-title {
+    font-size:13px; font-weight:800; color:#ffba08; text-transform:uppercase; letter-spacing:1px;
+    margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .matches-section .matches-date {
+    font-size:15px; color:#fff; font-weight:800; text-transform:none; letter-spacing:0.5px;
+    background:#e85d04; padding:4px 12px; border-radius:10px;
+  }
+  .match-row {
+    display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
+  }
+  .match-row:last-child { border-bottom:none; }
+  .match-row .match-time {
+    background:#1b6b3a; color:#fff; font-weight:800; font-size:12px;
+    padding:4px 10px; border-radius:8px; flex-shrink:0;
+  }
+  .match-row .match-teams { flex:1; text-align:center; font-weight:700; color:#fff; }
+  .match-row .match-vs { color:#e85d04; font-weight:800; margin:0 6px; }
+  .matches-empty { font-size:12px; color:#9a9a9a; text-align:center; padding:6px 0; }
+
   /* NAV PILLS - chuyen huong danh muc */
   .nav-pills {
     position:sticky; top:0; z-index:6;
@@ -148,6 +173,11 @@
 
   <div class="hero">
     <img src="images/Background.jpg" alt="HakyFood - Ship đồ ăn đêm Hà Nội">
+  </div>
+
+  <div class="matches-section" id="matchesSection">
+    <div class="matches-title">⚽ Lịch thi đấu <span class="matches-date" id="matchesDate"></span></div>
+    <div id="matchesList"></div>
   </div>
 
   <div class="promo">
@@ -339,6 +369,38 @@ const ITEMS = [
   {cats:['trang-mieng'], name:'Roi đỏ', desc:'300gr, kèm muối chấm', price:'40.000', img:'roi-do', emoji:'🍒'},
   {cats:['trang-mieng'], name:'Dưa hấu', desc:'350gr, gọt sẵn', price:'25.000', img:'dua-hau', emoji:'🍉'},
 ];
+
+// ===== LICH THI DAU HOM NAY =====
+// Cap nhat moi ngay: sua MATCH_DATE va MATCHES roi luu file lai.
+// teamA/teamB: ten 2 doi. time: gio da (gio Viet Nam).
+const MATCH_DATE = '22/08/2026';
+const MATCHES = [
+  {time:'02:00', teamA:'Arsenal', teamB:'Coventry'},
+  {time:'18:30', teamA:'Hull', teamB:'Man United'},
+  {time:'21:00', teamA:'Everton', teamB:'Crystal Palace'},
+  {time:'21:00', teamA:'Ipswich', teamB:'Sunderland'},
+  {time:'21:00', teamA:'Nottm Forest', teamB:'Leeds'},
+  {time:'23:30', teamA:'Brentford', teamB:'Tottenham'},
+];
+
+// ===== RENDER LICH THI DAU =====
+const matchesDateEl = document.getElementById('matchesDate');
+const matchesListEl = document.getElementById('matchesList');
+if (matchesDateEl) matchesDateEl.textContent = MATCH_DATE;
+if (matchesListEl) {
+  if (MATCHES.length) {
+    MATCHES.forEach(m => {
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.innerHTML = `
+        <div class="match-time">${m.time}</div>
+        <div class="match-teams">${m.teamA}<span class="match-vs">vs</span>${m.teamB}</div>`;
+      matchesListEl.appendChild(row);
+    });
+  } else {
+    matchesListEl.innerHTML = `<div class="matches-empty">Hôm nay chưa có trận nào — vẫn ship đồ ăn đêm bình thường 18h30–3h sáng nhé 🌙</div>`;
+  }
+}
 
 // ===== RENDER =====
 const menuEl = document.getElementById('menu');

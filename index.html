@@ -33,14 +33,15 @@
   }
   .matches-section .matches-title {
     font-size:13px; font-weight:800; color:#ffba08; text-transform:uppercase; letter-spacing:1px;
-    margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-bottom:8px;
   }
-  .matches-section .matches-date {
-    font-size:15px; color:#fff; font-weight:800; text-transform:none; letter-spacing:0.5px;
-    background:#e85d04; padding:4px 12px; border-radius:10px;
+  .matches-day + .matches-day { margin-top:12px; }
+  .matches-day-title {
+    font-size:12px; font-weight:800; color:#fff; text-transform:none; letter-spacing:0.3px;
+    background:#e85d04; display:inline-block; padding:3px 10px; border-radius:8px; margin-bottom:4px;
   }
   .match-row {
-    display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
+    display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
   }
   .match-row:last-child { border-bottom:none; }
   .match-row .match-time {
@@ -49,6 +50,10 @@
   }
   .match-row .match-teams { flex:1; text-align:center; font-weight:700; color:#fff; }
   .match-row .match-vs { color:#e85d04; font-weight:800; margin:0 6px; }
+  .match-row .match-comp {
+    font-size:9px; font-weight:700; color:#9ab0c9; background:#0f3460;
+    padding:2px 6px; border-radius:6px; flex-shrink:0; white-space:nowrap; text-transform:uppercase;
+  }
   .matches-empty { font-size:12px; color:#9a9a9a; text-align:center; padding:6px 0; }
 
   /* NAV PILLS - chuyen huong danh muc */
@@ -176,7 +181,7 @@
   </div>
 
   <div class="matches-section" id="matchesSection">
-    <div class="matches-title">⚽ Lịch thi đấu <span class="matches-date" id="matchesDate"></span></div>
+    <div class="matches-title">⚽ Lịch thi đấu 3 ngày tới</div>
     <div id="matchesList"></div>
   </div>
 
@@ -291,19 +296,19 @@ const ITEMS = [
   {cats:['mi-mien'], name:'Mì trộn Xúc xích', desc:'2 cái xúc xích', price:'35.000', img:'mi-tron-xuc-xich', emoji:'🌭'},
 
   // --- DO AN VAT ---
-  {cats:['an-vat'], name:'Da gà chiên giòn phô mai', desc:'Da gà chiên giòn lắc phô mai', price:'45.000', img:'da-ga-chien-gion-pho-mai', emoji:'🧀', badge:'Mới'},
+  {cats:['an-vat'], name:'Da gà chiên giòn lắc phô mai', desc:'Da gà chiên giòn lắc phô mai', price:'45.000', img:'da-ga-chien-gion-pho-mai', emoji:'🧀', badge:'Mới'},
   {cats:['an-vat'], name:'Da gà An Liễng', desc:'Da gà chiên An Liễng', price:'45.000', img:'da-ga-an-lieng', emoji:'🍗', badge:'Mới'},
-  {cats:['an-vat'], name:'Nem chua viên phô mai', desc:'Nem chua viên chiên phô mai', price:'50.000', img:'nem-chua-vien-pho-mai', emoji:'🧀', badge:'Mới'},
-  {cats:['an-vat'], name:'Gà viên chiên lắc phô mai', desc:'Gà viên chiên giòn lắc phô mai', price:'70.000', img:'ga-vien-chien-lac-pho-mai', emoji:'🧀'},
+  {cats:['an-vat'], name:'Gà viên chiên lắc phô mai', desc:'Gà viên chiên giòn lắc phô mai', price:'60.000', img:'ga-vien-chien-lac-pho-mai', emoji:'🧀'},
   {cats:['an-vat'], name:'Gà viên chiên giòn', desc:'Gà viên chiên giòn', price:'60.000', img:'ga-vien-chien-gion', emoji:'🍗', badge:'Best Seller'},
   {cats:['an-vat'], name:'Phồng tôm chấm pate', desc:'Phồng tôm chiên giòn, chấm pate', price:'50.000', img:'phong-tom-cham-pate', emoji:'🍤'},
   {cats:['an-vat'], name:'Khoai tây chiên lắc phô mai', desc:'Khoai tây chiên lắc phô mai', price:'40.000', img:'khoai-tay-chien-lac-pho-mai', emoji:'🧀'},
   {cats:['an-vat'], name:'Khoai tây chiên', desc:'Khoai tây chiên giòn', price:'30.000', img:'khoai-tay-chien', emoji:'🍟'},
   {cats:['an-vat'], name:'Nem chua rán', desc:'Nem chua rán giòn', price:'35.000', img:'nem-chua-ran', emoji:'🍢'},
+  {cats:['an-vat'], name:'Nem chua viên phô mai', desc:'Nem chua viên chiên phô mai', price:'50.000', img:'nem-chua-vien-pho-mai', emoji:'🧀', badge:'Mới'},
   {cats:['an-vat'], name:'Lạp xưởng Hà Khẩu', desc:'Kèm ớt bột — 1 cái', price:'20.000', img:'lap-xuong-ha-khau', emoji:'🌭', badge:'Best Seller'},
   {cats:['an-vat'], name:'Lạp xưởng thường', desc:'1 cái', price:'12.000', img:'lap-xuong-thuong', emoji:'🌭'},
   {cats:['an-vat'], name:'Xúc xích', desc:'1 cái', price:'10.000', img:'xuc-xich', emoji:'🌭'},
-  {cats:['an-vat'], name:'Bánh bao chấm sữa đặc', desc:'6 cái, chấm sữa đặc', price:'20.000', img:'banh-bao-cham-sua-dac', emoji:'🥟'},
+  {cats:['an-vat'], name:'Bánh bao chấm sữa đặc', desc:'6 cái, chấm sữa đặc', price:'25.000', img:'banh-bao-cham-sua-dac', emoji:'🥟'},
   {cats:['an-vat'], name:'Combo ăn vặt 1', desc:'Dành cho 1-2 người', price:'55.000', img:'combo-an-vat-1', emoji:'📦', badge:'Best Seller'},
   {cats:['an-vat'], name:'Combo ăn vặt 2', desc:'Tôm viên, cá viên, chả xoắn, tôm surimi, rau củ viên, viên hồ lô, nem chua rán, ngô chiên, dưa chuột, tương ớt — 2-3 người', price:'100.000', img:'combo-an-vat-2', emoji:'📦'},
 
@@ -338,8 +343,6 @@ const ITEMS = [
   // --- DO UONG (con lai) ---
   {cats:['do-uong'], name:'Trà ô long nhài', desc:'Kèm trân châu trắng', price:'35.000', img:'tra-o-long-nhai', emoji:'🍵'},
   {cats:['do-uong'], name:'Trà ô long nhài sữa', desc:'Kèm trân châu trắng', price:'35.000', img:'tra-o-long-nhai-sua', emoji:'🍵'},
-  {cats:['do-uong'], name:'Trà ô long nhài cốm', desc:'Vị cốm thơm dịu', price:'40.000', img:'tra-o-long-nhai-com', emoji:'🍵', badge:'Mới'},
-  {cats:['do-uong'], name:'Trà sữa đậm vị truyền thống', desc:'Kèm trân châu caramel', price:'30.000', img:'tra-sua-dam-vi-truyen-thong', emoji:'🧋'},
   {cats:['do-uong'], name:'Sữa chua chanh dây', desc:'Sữa chua kèm chanh dây', price:'35.000', img:'sua-chua-chanh-day', emoji:'🥤'},
   {cats:['do-uong'], name:'Sữa chua xoài', desc:'Sữa chua kèm xoài', price:'35.000', img:'sua-chua-xoai', emoji:'🥤', badge:'Must Try'},
   {cats:['do-uong'], name:'Sữa chua dâu', desc:'Sữa chua kèm dâu', price:'35.000', img:'sua-chua-dau', emoji:'🥤'},
@@ -370,35 +373,65 @@ const ITEMS = [
   {cats:['trang-mieng'], name:'Dưa hấu', desc:'350gr, gọt sẵn', price:'25.000', img:'dua-hau', emoji:'🍉'},
 ];
 
-// ===== LICH THI DAU HOM NAY =====
-// Cap nhat moi ngay: sua MATCH_DATE va MATCHES roi luu file lai.
-// teamA/teamB: ten 2 doi. time: gio da (gio Viet Nam).
-const MATCH_DATE = '22/08/2026';
-const MATCHES = [
-  {time:'02:00', teamA:'Arsenal', teamB:'Coventry'},
-  {time:'18:30', teamA:'Hull', teamB:'Man United'},
-  {time:'21:00', teamA:'Everton', teamB:'Crystal Palace'},
-  {time:'21:00', teamA:'Ipswich', teamB:'Sunderland'},
-  {time:'21:00', teamA:'Nottm Forest', teamB:'Leeds'},
-  {time:'23:30', teamA:'Brentford', teamB:'Tottenham'},
+// ===== LICH THI DAU 3 NGAY TOI =====
+// Cap nhat hang ngay luc 10h sang (tu dong, xem scheduled task).
+// Cap nhat thu cong: sua mang SCHEDULE roi luu file lai.
+// Moi phan tu la 1 ngay: date (dd/mm/yyyy), label (Thu/Chu Nhat), matches (gio da theo gio Viet Nam, da sap xep tang dan).
+// comp: ten giai (NHA = Ngoai hang Anh, La Liga, Serie A...)
+const SCHEDULE = [
+  {date:'22/08/2026', label:'Thứ Bảy', matches:[
+    {time:'02:00', teamA:'Arsenal', teamB:'Coventry', comp:'NHA'},
+    {time:'18:30', teamA:'Hull', teamB:'Man United', comp:'NHA'},
+    {time:'21:00', teamA:'Everton', teamB:'Crystal Palace', comp:'NHA'},
+    {time:'21:00', teamA:'Ipswich', teamB:'Sunderland', comp:'NHA'},
+    {time:'21:00', teamA:'Nottm Forest', teamB:'Leeds', comp:'NHA'},
+    {time:'22:00', teamA:'Athletic Club', teamB:'Sevilla', comp:'La Liga'},
+    {time:'23:30', teamA:'Brentford', teamB:'Tottenham', comp:'NHA'},
+    {time:'23:30', teamA:'Inter', teamB:'Monza', comp:'Serie A'},
+    {time:'23:30', teamA:'Udinese', teamB:'Como', comp:'Serie A'},
+  ]},
+  {date:'23/08/2026', label:'Chủ Nhật', matches:[
+    {time:'00:30', teamA:'Valencia', teamB:'Celta Vigo', comp:'La Liga'},
+    {time:'01:45', teamA:'Genoa', teamB:'Napoli', comp:'Serie A'},
+    {time:'01:45', teamA:'Parma', teamB:'Cagliari', comp:'Serie A'},
+    {time:'02:30', teamA:'Espanyol', teamB:'Real Madrid', comp:'La Liga'},
+    {time:'20:00', teamA:'Brighton', teamB:'Aston Villa', comp:'NHA'},
+    {time:'20:00', teamA:'Man City', teamB:'Bournemouth', comp:'NHA'},
+    {time:'22:00', teamA:'Atletico Madrid', teamB:'Villarreal', comp:'La Liga'},
+    {time:'22:30', teamA:'Newcastle', teamB:'Liverpool', comp:'NHA'},
+    {time:'23:30', teamA:'Frosinone', teamB:'Juventus', comp:'Serie A'},
+    {time:'23:30', teamA:'Venezia', teamB:'Lecce', comp:'Serie A'},
+  ]},
+  {date:'24/08/2026', label:'Thứ Hai', matches:[
+    {time:'00:30', teamA:'Getafe', teamB:'Racing Santander', comp:'La Liga'},
+    {time:'00:30', teamA:'Osasuna', teamB:'Levante', comp:'La Liga'},
+    {time:'01:45', teamA:'Atalanta', teamB:'Sassuolo', comp:'Serie A'},
+    {time:'01:45', teamA:'Torino', teamB:'Milan', comp:'Serie A'},
+    {time:'02:30', teamA:'Elche', teamB:'Barcelona', comp:'La Liga'},
+    {time:'23:30', teamA:'Bologna', teamB:'Lazio', comp:'Serie A'},
+  ]},
 ];
 
 // ===== RENDER LICH THI DAU =====
-const matchesDateEl = document.getElementById('matchesDate');
 const matchesListEl = document.getElementById('matchesList');
-if (matchesDateEl) matchesDateEl.textContent = MATCH_DATE;
 if (matchesListEl) {
-  if (MATCHES.length) {
-    MATCHES.forEach(m => {
-      const row = document.createElement('div');
-      row.className = 'match-row';
-      row.innerHTML = `
-        <div class="match-time">${m.time}</div>
-        <div class="match-teams">${m.teamA}<span class="match-vs">vs</span>${m.teamB}</div>`;
-      matchesListEl.appendChild(row);
+  if (SCHEDULE.length) {
+    SCHEDULE.forEach(day => {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'matches-day';
+      const rowsHtml = day.matches.length
+        ? day.matches.map(m => `
+          <div class="match-row">
+            <div class="match-time">${m.time}</div>
+            <div class="match-teams">${m.teamA}<span class="match-vs">vs</span>${m.teamB}</div>
+            ${m.comp ? `<div class="match-comp">${m.comp}</div>` : ''}
+          </div>`).join('')
+        : `<div class="matches-empty">Chưa có trận nào</div>`;
+      dayEl.innerHTML = `<div class="matches-day-title">${day.label} · ${day.date}</div>${rowsHtml}`;
+      matchesListEl.appendChild(dayEl);
     });
   } else {
-    matchesListEl.innerHTML = `<div class="matches-empty">Hôm nay chưa có trận nào — vẫn ship đồ ăn đêm bình thường 18h30–3h sáng nhé 🌙</div>`;
+    matchesListEl.innerHTML = `<div class="matches-empty">Chưa có lịch — vẫn ship đồ ăn đêm bình thường 18h30–3h sáng nhé 🌙</div>`;
   }
 }
 

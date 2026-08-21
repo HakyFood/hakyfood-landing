@@ -33,7 +33,11 @@
   }
   .matches-section .matches-title {
     font-size:13px; font-weight:800; color:#ffba08; text-transform:uppercase; letter-spacing:1px;
-    margin-bottom:8px;
+    margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .matches-section .matches-title .matches-date {
+    font-size:12px; color:#fff; font-weight:800; text-transform:none; letter-spacing:0.3px;
+    background:#e85d04; padding:4px 10px; border-radius:8px;
   }
   .matches-day + .matches-day { margin-top:12px; }
   .matches-day-title {
@@ -41,20 +45,22 @@
     background:#e85d04; display:inline-block; padding:3px 10px; border-radius:8px; margin-bottom:4px;
   }
   .match-row {
-    display:grid; grid-template-columns:60px 1fr 60px; align-items:center; gap:6px;
+    display:grid; grid-template-columns:44px 1fr auto 1fr 46px; align-items:center; gap:6px;
     padding:8px 0; border-bottom:1px solid #2d3f56; font-size:13px;
   }
   .match-row:last-child { border-bottom:none; }
   .match-row .match-time {
-    background:#1b6b3a; color:#fff; font-weight:800; font-size:12px;
-    padding:4px 8px; border-radius:8px; text-align:center; justify-self:start;
+    background:#1b6b3a; color:#fff; font-weight:800; font-size:11px;
+    padding:4px 6px; border-radius:8px; text-align:center;
   }
-  .match-row .match-teams { text-align:center; font-weight:700; color:#fff; }
-  .match-row .match-vs { color:#e85d04; font-weight:800; margin:0 6px; }
+  .match-row .match-team { font-weight:700; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .match-row .match-team-a { text-align:right; }
+  .match-row .match-team-b { text-align:left; }
+  .match-row .match-vs { color:#e85d04; font-weight:800; text-align:center; padding:0 2px; }
   .match-row .match-comp {
     font-size:9px; font-weight:700; color:#9ab0c9; background:#0f3460;
     padding:2px 6px; border-radius:6px; white-space:nowrap; text-transform:uppercase;
-    text-align:center; justify-self:end; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+    text-align:center; overflow:hidden; text-overflow:ellipsis;
   }
   .matches-empty { font-size:12px; color:#9a9a9a; text-align:center; padding:6px 0; }
 
@@ -183,7 +189,7 @@
   </div>
 
   <div class="matches-section" id="matchesSection">
-    <div class="matches-title">⚽ Lịch thi đấu</div>
+    <div class="matches-title">⚽ Lịch thi đấu <span class="matches-date" id="matchesDate"></span></div>
     <div id="matchesList"></div>
   </div>
 
@@ -389,21 +395,28 @@ const SCHEDULE = [
 ];
 
 // ===== RENDER LICH THI DAU =====
+const matchesDateEl = document.getElementById('matchesDate');
 const matchesListEl = document.getElementById('matchesList');
+if (matchesDateEl && SCHEDULE.length) {
+  matchesDateEl.textContent = `${SCHEDULE[0].label} · ${SCHEDULE[0].date}`;
+}
 if (matchesListEl) {
   if (SCHEDULE.length) {
-    SCHEDULE.forEach(day => {
+    SCHEDULE.forEach((day, dayIndex) => {
       const dayEl = document.createElement('div');
       dayEl.className = 'matches-day';
       const rowsHtml = day.matches.length
         ? day.matches.map(m => `
           <div class="match-row">
             <div class="match-time">${m.time}</div>
-            <div class="match-teams">${m.teamA}<span class="match-vs">vs</span>${m.teamB}</div>
-            ${m.comp ? `<div class="match-comp">${m.comp}</div>` : ''}
+            <div class="match-team match-team-a">${m.teamA}</div>
+            <div class="match-vs">vs</div>
+            <div class="match-team match-team-b">${m.teamB}</div>
+            <div class="match-comp">${m.comp || ''}</div>
           </div>`).join('')
         : `<div class="matches-empty">Chưa có trận nào</div>`;
-      dayEl.innerHTML = `<div class="matches-day-title">${day.label} · ${day.date}</div>${rowsHtml}`;
+      const dayTitleHtml = dayIndex > 0 ? `<div class="matches-day-title">${day.label} · ${day.date}</div>` : '';
+      dayEl.innerHTML = dayTitleHtml + rowsHtml;
       matchesListEl.appendChild(dayEl);
     });
   } else {

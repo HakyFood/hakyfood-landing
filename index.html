@@ -42,7 +42,7 @@
   .matches-day + .matches-day { margin-top:12px; }
   .matches-day-title {
     font-size:12px; font-weight:800; color:#fff; text-transform:none; letter-spacing:0.3px;
-    background:#e85d04; display:inline-block; padding:3px 10px; border-radius:8px; margin-bottom:4px;
+    background:#e85d04; display:table; margin-left:auto; padding:3px 10px; border-radius:8px; margin-bottom:4px;
   }
   .match-row {
     display:grid; grid-template-columns:44px 1fr auto 1fr 46px; align-items:center; gap:6px;
@@ -388,7 +388,6 @@ const ITEMS = [
 // comp: ten giai (NHA = Ngoai hang Anh, La Liga, Serie A...)
 const SCHEDULE = [
   {date:'22/08/2026', label:'Thứ Bảy', matches:[
-    {time:'02:30', teamA:'Espanyol', teamB:'Real Madrid', comp:'La Liga'},
     {time:'18:30', teamA:'Hull', teamB:'Man United', comp:'NHA'},
     {time:'20:00', teamA:'Thái Lan', teamB:'Việt Nam'},
   ]},

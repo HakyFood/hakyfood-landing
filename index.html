@@ -387,11 +387,14 @@ const ITEMS = [
 // Moi phan tu la 1 ngay: date (dd/mm/yyyy), label (Thu/Chu Nhat), matches (gio da theo gio Viet Nam, da sap xep tang dan).
 // comp: ten giai (NHA = Ngoai hang Anh, La Liga, Serie A...)
 const SCHEDULE = [
-  {date:'28/08/2026', label:'Thứ Sáu', matches:[]},
   {date:'29/08/2026', label:'Thứ Bảy', matches:[
-    {time:'02:00', teamA:'Crystal Palace', teamB:'Man City', comp:'NHA'},
     {time:'18:30', teamA:'Liverpool', teamB:'Nottm Forest', comp:'NHA'},
     {time:'23:30', teamA:'Tottenham', teamB:'Newcastle', comp:'NHA'},
+  ]},
+  {date:'30/08/2026', label:'Chủ Nhật', matches:[
+    {time:'20:00', teamA:'Chelsea', teamB:'Brighton', comp:'NHA'},
+    {time:'22:00', teamA:'Real Madrid', teamB:'Málaga', comp:'La Liga'},
+    {time:'22:30', teamA:'Man United', teamB:'Ipswich', comp:'NHA'},
   ]},
 ];
 

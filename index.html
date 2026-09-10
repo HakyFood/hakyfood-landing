@@ -167,6 +167,21 @@
   .btn-shopee { background:#ee4d2d; }
   .btn-grab { background:#00B14F; }
 
+  /* GACHA CTA - nut dan sang Dem Nay An Gi */
+  .gacha-cta-wrap { margin:14px 16px 0; }
+  .gacha-cta {
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(135deg,#ff6b35,#ffba08); color:#1a1a2e;
+    font-weight:800; font-size:14px; text-decoration:none;
+    padding:14px 16px; border-radius:14px; text-align:center;
+    box-shadow:0 4px 14px rgba(255,186,8,0.35);
+    animation:gacha-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes gacha-pulse {
+    0%, 100% { transform:scale(1); }
+    50% { transform:scale(1.02); }
+  }
+
   /* RESPONSIVE - man hinh rong (may tinh/tablet) */
   @media (min-width: 600px) {
     body {
@@ -187,6 +202,10 @@
 
   <div class="hero">
     <img src="images/Background.jpg" alt="HakyFood - Ship đồ ăn đêm Hà Nội">
+  </div>
+
+  <div class="gacha-cta-wrap">
+    <a class="gacha-cta" href="https://demnayangi.netlify.app/" target="_blank" rel="noopener">🎲 Đêm Nay Ăn Gì</a>
   </div>
 
   <div class="matches-section" id="matchesSection">

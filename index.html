@@ -431,7 +431,7 @@ if (matchesListEl) {
             <div class="match-team match-team-b">${m.teamB}</div>
             <div class="match-comp">${m.comp || ''}</div>
           </div>`).join('')
-        : `<div class="matches-empty">Chưa có trận nào</div>`;
+        : `<div class="matches-empty">Không có trận</div>`;
       const dayTitleHtml = dayIndex > 0 ? `<div class="matches-day-title">${day.label} · ${day.date}</div>` : '';
       dayEl.innerHTML = dayTitleHtml + rowsHtml;
       matchesListEl.appendChild(dayEl);

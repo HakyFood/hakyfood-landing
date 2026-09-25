@@ -407,8 +407,13 @@ const ITEMS = [
 // Moi phan tu la 1 ngay: date (dd/mm/yyyy), label (Thu/Chu Nhat), matches (gio da theo gio Viet Nam, da sap xep tang dan).
 // comp: ten giai (NHA = Ngoai hang Anh, La Liga, Serie A...)
 const SCHEDULE = [
-  {date:'24/09/2026', label:'Thứ Năm', matches:[]},
-  {date:'25/09/2026', label:'Thứ Sáu', matches:[]},
+  {date:'25/09/2026', label:'Thứ Sáu', matches:[
+    {time:'17:30', teamA:'U23 Việt Nam', teamB:'U23 Hàn Quốc', comp:'ASIAD'},
+  ]},
+  {date:'26/09/2026', label:'Thứ Bảy', matches:[
+    {time:'01:45', teamA:'Thổ Nhĩ Kỳ', teamB:'Pháp', comp:'Nations League'},
+    {time:'19:30', teamA:'Việt Nam', teamB:'Philippines', comp:'ASEAN Cup'},
+  ]},
 ];
 
 // ===== RENDER LICH THI DAU =====
